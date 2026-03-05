@@ -16,6 +16,11 @@ namespace Cline\Babel\Exceptions;
  */
 final class InvalidEncodingException extends EncodingException
 {
+    /**
+     * Create an exception for an invalid encoding name.
+     *
+     * @param string $encoding The invalid encoding value.
+     */
     public static function forName(string $encoding): self
     {
         return new self('Invalid encoding: '.$encoding);

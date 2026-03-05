@@ -10,6 +10,7 @@
 namespace Cline\Babel\Concerns;
 
 use Cline\Babel\Babel;
+use Cline\Babel\Encodings\ForceUtf8;
 use Cline\Babel\Exceptions\EncodingConversionFailedException;
 use Cline\Babel\Exceptions\TransliterationFailedException;
 use Transliterator;
@@ -20,6 +21,7 @@ use const ENT_QUOTES;
 use function html_entity_decode;
 use function htmlspecialchars;
 use function iconv;
+use function is_string;
 use function mb_check_encoding;
 use function mb_convert_encoding;
 use function mb_detect_encoding;
@@ -38,6 +40,8 @@ trait ConvertsEncodings
 {
     /**
      * Convert to ASCII with transliteration.
+     *
+     * @return ?string `null` when the current value is empty
      *
      * @example Babel::from('Żółć')->toAscii() // "Zolc"
      * @example Babel::from('Café')->toAscii() // "Cafe"
@@ -69,12 +73,22 @@ trait ConvertsEncodings
     /**
      * Convert to UTF-8 from detected or specified encoding.
      *
+     * @return ?string `null` when the current value is empty
+     *
      * @example Babel::from($isoString)->toUtf8('ISO-8859-1')
      */
     public function toUtf8(?string $from = null): ?string
     {
         if ($this->isEmpty()) {
             return null;
+        }
+
+        if ($from === null) {
+            $converted = ForceUtf8::toUTF8($this->value);
+
+            if (is_string($converted)) {
+                return $converted;
+            }
         }
 
         $from ??= mb_detect_encoding($this->value, null, true) ?: 'UTF-8';
@@ -89,7 +103,27 @@ trait ConvertsEncodings
     }
 
     /**
+     * Fixes mojibake/double-encoded UTF-8 text.
+     *
+     * @return ?string `null` when the current value is empty
+     *
+     * @example Babel::from('FÃ©dÃ©ration')->fixUtf8() // "Fédération"
+     */
+    public function fixUtf8(): ?string
+    {
+        if ($this->isEmpty()) {
+            return null;
+        }
+
+        $fixed = ForceUtf8::fixUTF8($this->value);
+
+        return is_string($fixed) ? $fixed : $this->value;
+    }
+
+    /**
      * Convert to ISO-8859-1 (Latin-1) with transliteration.
+     *
+     * @return ?string `null` when the current value is empty
      *
      * @example Babel::from('Żółć')->toLatin1() // "Zolc"
      */
@@ -119,6 +153,8 @@ trait ConvertsEncodings
     /**
      * Convert to a specific encoding.
      *
+     * @return ?string `null` when the current value is empty
+     *
      * @example Babel::from('Hello')->toEncoding('UTF-16')
      */
     public function toEncoding(string $to, ?string $from = null): ?string
@@ -136,6 +172,8 @@ trait ConvertsEncodings
 
     /**
      * Convert special characters to HTML entities.
+     *
+     * @return ?string `null` when the current value is empty
      *
      * @example Babel::from('<script>')->toHtmlEntities() // "&lt;script&gt;"
      */
@@ -165,6 +203,8 @@ trait ConvertsEncodings
     /**
      * Convert to URL-safe slug.
      *
+     * @return ?string `null` when the current value is empty
+     *
      * @example Babel::from('Hello World!')->toSlug() // "hello-world"
      * @example Babel::from('Żółć zażółć')->toSlug() // "zolc-zazolc"
      */
@@ -193,6 +233,8 @@ trait ConvertsEncodings
 
     /**
      * Convert to safe filename.
+     *
+     * @return ?string `null` when the current value is empty
      *
      * @example Babel::from('My File (1).txt')->toFilename() // "my_file_1.txt"
      */
@@ -225,6 +267,8 @@ trait ConvertsEncodings
     /**
      * Convert to XML 1.0 safe string.
      * Removes characters not allowed in XML 1.0.
+     *
+     * @return ?string `null` when the current value is empty
      *
      * @example Babel::from("Hello\x00World")->toXmlSafe() // "HelloWorld"
      */

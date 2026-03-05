@@ -15,6 +15,8 @@ use const ENT_HTML5;
 use const ENT_QUOTES;
 
 /**
+ * Contract for Unicode-aware string encoding, conversion, and analysis.
+ *
  * @author Brian Faust <brian@cline.sh>
  */
 interface Babel
@@ -35,26 +37,43 @@ interface Babel
 
     /**
      * Convert to ASCII with transliteration.
+     *
+     * @return ?string `null` when the current value is empty
      */
     public function toAscii(): ?string;
 
     /**
      * Convert to UTF-8 from detected or specified encoding.
+     *
+     * @return ?string `null` when the current value is empty
      */
     public function toUtf8(?string $from = null): ?string;
 
     /**
+     * Fix mojibake/double-encoded UTF-8 text.
+     *
+     * @return ?string `null` when the current value is empty
+     */
+    public function fixUtf8(): ?string;
+
+    /**
      * Convert to ISO-8859-1 (Latin-1) with transliteration.
+     *
+     * @return ?string `null` when the current value is empty
      */
     public function toLatin1(): ?string;
 
     /**
      * Convert to a specific encoding.
+     *
+     * @return ?string `null` when the current value is empty
      */
     public function toEncoding(string $to, ?string $from = null): ?string;
 
     /**
      * Convert special characters to HTML entities.
+     *
+     * @return ?string `null` when the current value is empty
      */
     public function toHtmlEntities(int $flags = ENT_QUOTES | ENT_HTML5): ?string;
 
@@ -65,16 +84,22 @@ interface Babel
 
     /**
      * Convert to URL-safe slug.
+     *
+     * @return ?string `null` when the current value is empty
      */
     public function toSlug(string $separator = '-'): ?string;
 
     /**
      * Convert to safe filename.
+     *
+     * @return ?string `null` when the current value is empty
      */
     public function toFilename(string $separator = '_'): ?string;
 
     /**
      * Convert to XML 1.0 safe string.
+     *
+     * @return ?string `null` when the current value is empty
      */
     public function toXmlSafe(): ?string;
 
@@ -84,6 +109,8 @@ interface Babel
 
     /**
      * Detect the string's encoding.
+     *
+     * @return ?string `null` when the value is empty or detection fails
      */
     public function detect(): ?string;
 
@@ -237,7 +264,7 @@ interface Babel
     /**
      * Get the dominant text direction.
      *
-     * @return string 'ltr' | 'rtl' | 'mixed' | 'neutral'
+     * @return 'ltr'|'mixed'|'neutral'|'rtl'
      */
     public function direction(): string;
 

@@ -16,6 +16,9 @@ namespace Cline\Babel\Exceptions;
  */
 final class EncodingDetectionFailedException extends EncodingException
 {
+    /**
+     * Create an exception for failed encoding detection.
+     */
     public static function forString(): self
     {
         return new self('Failed to detect string encoding');

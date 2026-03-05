@@ -16,6 +16,11 @@ namespace Cline\Babel\Exceptions;
  */
 final class InvalidTransliterationRulesException extends TransliterationException
 {
+    /**
+     * Create an exception for invalid transliteration rules.
+     *
+     * @param string $rules The invalid transliteration rules.
+     */
     public static function forRules(string $rules): self
     {
         return new self('Invalid transliteration rules: '.$rules);

@@ -25,6 +25,8 @@ trait DetectsEncodings
     /**
      * Detect the string's encoding.
      *
+     * @return ?string `null` when the value is empty or encoding cannot be detected
+     *
      * @example Babel::from('Hello')->detect() // "ASCII"
      * @example Babel::from('Héllo')->detect() // "UTF-8"
      */

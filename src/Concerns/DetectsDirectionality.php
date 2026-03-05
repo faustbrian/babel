@@ -52,7 +52,7 @@ trait DetectsDirectionality
     /**
      * Get the dominant text direction.
      *
-     * @return string 'ltr' | 'rtl' | 'mixed' | 'neutral'
+     * @return 'ltr'|'mixed'|'neutral'|'rtl'
      *
      * @example Babel::from('Hello')->direction() // "ltr"
      * @example Babel::from('مرحبا')->direction() // "rtl"

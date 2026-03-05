@@ -51,7 +51,7 @@ trait DetectsScripts
     }
 
     /**
-     * Check if string contains Japanese characters (Hiragana, Katakana, or Han).
+     * Check if string contains Japanese kana characters (Hiragana or Katakana).
      *
      * @example Babel::from('こんにちは')->containsJapanese() // true
      * @example Babel::from('カタカナ')->containsJapanese() // true
@@ -210,7 +210,7 @@ trait DetectsScripts
     /**
      * Check if string contains Armenian characters.
      *
-     * @example Babel::from('Հայաստusage')->containsArmenian() // true
+     * @example Babel::from('Հայաստան')->containsArmenian() // true
      */
     public function containsArmenian(): bool
     {

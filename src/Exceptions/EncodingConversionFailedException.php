@@ -18,6 +18,12 @@ use function sprintf;
  */
 final class EncodingConversionFailedException extends EncodingException
 {
+    /**
+     * Create an exception for a failed conversion between two encodings.
+     *
+     * @param string $from The source encoding.
+     * @param string $to   The target encoding.
+     */
     public static function fromEncodings(string $from, string $to): self
     {
         return new self(sprintf('Failed to convert from %s to %s', $from, $to));

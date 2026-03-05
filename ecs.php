@@ -8,7 +8,13 @@
  */
 
 use Cline\CodingStandard\EasyCodingStandard\Factory;
+use PhpCsFixer\Fixer\Alias\MbStrFunctionsFixer;
+use PhpCsFixerCustomFixers\Fixer\TypedClassConstantFixer;
 
 return Factory::create(
     paths: [__DIR__.'/src', __DIR__.'/tests'],
+    skip: [
+        MbStrFunctionsFixer::class => [__DIR__.'/src/Encodings/ForceUtf8.php'],
+        TypedClassConstantFixer::class => [__DIR__.'/src/Encodings/ForceUtf8.php'],
+    ],
 );

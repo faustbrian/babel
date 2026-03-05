@@ -36,9 +36,30 @@ describe('Conversion', function (): void {
             expect(Babel::from('Hello')->toUtf8())->toBe('Hello');
         });
 
+        test('preserves valid UTF-8 Cyrillic input', function (): void {
+            expect(Babel::from('Привет')->toUtf8())->toBe('Привет');
+        });
+
+        test('keeps mojibake unchanged (use fixUtf8 for repair)', function (): void {
+            expect(Babel::from("FÃ©dÃ©ration Camerounaise de Football\n")->toUtf8())
+                ->toBe("FÃ©dÃ©ration Camerounaise de Football\n");
+        });
+
         test('returns null for empty input', function (): void {
             expect(Babel::from('')->toUtf8())->toBeNull();
             expect(Babel::from(null)->toUtf8())->toBeNull();
+        });
+    });
+
+    describe('fixUtf8', function (): void {
+        test('fixes mojibake UTF-8 input', function (): void {
+            expect(Babel::from("FÃ©dÃ©ration Camerounaise de Football\n")->fixUtf8())
+                ->toBe("Fédération Camerounaise de Football\n");
+        });
+
+        test('returns null for empty input', function (): void {
+            expect(Babel::from('')->fixUtf8())->toBeNull();
+            expect(Babel::from(null)->fixUtf8())->toBeNull();
         });
     });
 
