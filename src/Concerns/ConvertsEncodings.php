@@ -29,6 +29,7 @@ use function mb_strtolower;
 use function mb_trim;
 use function preg_quote;
 use function preg_replace;
+use function transliterator_transliterate;
 
 /**
  * Provides encoding conversion methods for the Babel class.
@@ -148,6 +149,34 @@ trait ConvertsEncodings
         $result = iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $this->value);
 
         return $result !== false ? $result : $this->value;
+    }
+
+    /**
+     * Transliterate to Latin and constrain output to ISO-8859-1 repertoire while
+     * returning UTF-8 text.
+     *
+     * @return ?string `null` when the current value is empty
+     *
+     * @example Babel::from('Häagen 北京')->toLatin1TransliteratedUtf8() // "Häagen bei jing"
+     */
+    public function toLatin1TransliteratedUtf8(): ?string
+    {
+        if ($this->isEmpty()) {
+            return null;
+        }
+
+        $transliterated = transliterator_transliterate('Any-Latin', $this->value);
+        $source = $transliterated !== false ? $transliterated : $this->value;
+
+        $iso = iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', (string) $source);
+
+        if ($iso !== false) {
+            $utf8 = iconv('ISO-8859-1', 'UTF-8', $iso);
+
+            return $utf8 !== false ? $utf8 : $source;
+        }
+
+        return $source;
     }
 
     /**

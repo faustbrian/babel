@@ -44,6 +44,13 @@ Babel::from('Café résumé')->toLatin1();  // Preserves accents
 Babel::from('北京')->toLatin1();          // Transliterates to ASCII first
 ```
 
+If you need the result to remain UTF-8 (for example for `json_encode()`), use:
+
+```php
+Babel::from('Häagen 北京')->toLatin1TransliteratedUtf8();
+// "Häagen bei jing"
+```
+
 ## Custom Encoding
 
 Convert to any supported encoding:

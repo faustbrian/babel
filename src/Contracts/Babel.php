@@ -64,6 +64,14 @@ interface Babel
     public function toLatin1(): ?string;
 
     /**
+     * Transliterate to Latin and constrain output to ISO-8859-1 repertoire while
+     * returning a UTF-8 string.
+     *
+     * @return ?string `null` when the current value is empty
+     */
+    public function toLatin1TransliteratedUtf8(): ?string;
+
+    /**
      * Convert to a specific encoding.
      *
      * @return ?string `null` when the current value is empty
