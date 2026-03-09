@@ -1,11 +1,11 @@
 ## Table of Contents
 
-1. [Overview](#doc-docs-readme) (`docs/README.md`)
-2. [Character Analysis](#doc-docs-character-analysis) (`docs/character-analysis.md`)
-3. [Conversion](#doc-docs-conversion) (`docs/conversion.md`)
-4. [Directionality](#doc-docs-directionality) (`docs/directionality.md`)
-5. [Normalization](#doc-docs-normalization) (`docs/normalization.md`)
-6. [Script Detection](#doc-docs-script-detection) (`docs/script-detection.md`)
+1. [Overview](#doc-docs-readme)
+2. [Character Analysis](#doc-docs-character-analysis)
+3. [Conversion](#doc-docs-conversion)
+4. [Directionality](#doc-docs-directionality)
+5. [Normalization](#doc-docs-normalization)
+6. [Script Detection](#doc-docs-script-detection)
 <a id="doc-docs-readme"></a>
 
 ## Requirements
