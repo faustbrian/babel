@@ -1,11 +1,13 @@
 ## Table of Contents
 
-1. Overview (`docs/README.md`)
-2. Character Analysis (`docs/character-analysis.md`)
-3. Conversion (`docs/conversion.md`)
-4. Directionality (`docs/directionality.md`)
-5. Normalization (`docs/normalization.md`)
-6. Script Detection (`docs/script-detection.md`)
+1. [Overview](#doc-docs-readme) (`docs/README.md`)
+2. [Character Analysis](#doc-docs-character-analysis) (`docs/character-analysis.md`)
+3. [Conversion](#doc-docs-conversion) (`docs/conversion.md`)
+4. [Directionality](#doc-docs-directionality) (`docs/directionality.md`)
+5. [Normalization](#doc-docs-normalization) (`docs/normalization.md`)
+6. [Script Detection](#doc-docs-script-detection) (`docs/script-detection.md`)
+<a id="doc-docs-readme"></a>
+
 ## Requirements
 
 Babel requires PHP 8.2+ with the following extensions:
@@ -107,11 +109,13 @@ Babel::from('Héllo Wörld!')->toSlug();  // "hello-world"
 
 ## Next Steps
 
-- **[Conversion](./conversion.md)** - Encoding conversion methods
-- **[Script Detection](./script-detection.md)** - Detect scripts and character sets
-- **[Directionality](./directionality.md)** - RTL/LTR detection
-- **[Character Analysis](./character-analysis.md)** - Analyze string contents
-- **[Normalization](./normalization.md)** - Clean and normalize strings
+- **[Conversion](#doc-docs-conversion)** - Encoding conversion methods
+- **[Script Detection](#doc-docs-script-detection)** - Detect scripts and character sets
+- **[Directionality](#doc-docs-directionality)** - RTL/LTR detection
+- **[Character Analysis](#doc-docs-character-analysis)** - Analyze string contents
+- **[Normalization](#doc-docs-normalization)** - Clean and normalize strings
+
+<a id="doc-docs-character-analysis"></a>
 
 ## Non-Printable Characters
 
@@ -339,6 +343,8 @@ detectPunycodeThreat('gооgle.com');    // true (Cyrillic о)
 detectPunycodeThreat('pаypal.com');    // true (Cyrillic а)
 ```
 
+<a id="doc-docs-conversion"></a>
+
 ## ASCII Conversion
 
 Convert any Unicode string to ASCII with intelligent transliteration:
@@ -486,6 +492,8 @@ try {
     // Handle invalid encoding
 }
 ```
+
+<a id="doc-docs-directionality"></a>
 
 ## Overview
 
@@ -637,6 +645,8 @@ The following Unicode scripts are considered right-to-left:
 - Common characters (spaces, basic punctuation) are also neutral
 - The `mixed` direction is returned when both RTL and LTR characters are present in significant amounts
 - Empty strings and null values return `neutral`
+
+<a id="doc-docs-normalization"></a>
 
 ## Unicode Normalization
 
@@ -897,6 +907,8 @@ function normalizeForSearch(string $query): string
         ->value() ?? '';
 }
 ```
+
+<a id="doc-docs-script-detection"></a>
 
 ## Contains Methods
 
